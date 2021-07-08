@@ -31,7 +31,7 @@ export default function Breadcrumb({$app, initialState, onClick}){
         }
     }
 
-    this.$target.addEventListener('click', e=>{
+    document.body.addEventListener('click', e=>{
         e.preventDefault();
         e.stopPropagation();
         const $navItem = e.target.closest('.nav-item')

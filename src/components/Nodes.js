@@ -16,7 +16,7 @@ export default function Nodes({$app, initialState, onClick, onBackClick}){
 
     this.render = () =>{
         
-        if(this.state){ 
+        if(this.state.nodes.length){ 
             const nodesTemplate = this.state.nodes.map((node)=>{
             
                 const icon = node.type === "FILE" ? '💕' : '💌';

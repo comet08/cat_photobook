@@ -62,6 +62,7 @@ export default function App({$app}){
             this.setState({
                 ...nextState,
                 depth : nextDepth,
+                selectedFilePath : null,
                 nodes : cache[nextDepth[nextDepth.length-1].id]
             })
             
@@ -87,10 +88,15 @@ export default function App({$app}){
                         })
                     }
                     else {
+                        this.setState({
+                            ...this.state,
+                            isLoading : true
+                        })
                         const newNodes = await request(node.id);
 
                         this.setState({
                             ...this.state,
+                            isLoading : false,
                             isRoot : false,
                             depth : [...this.state.depth, node],
                             nodes : newNodes,

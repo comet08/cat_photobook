@@ -15,8 +15,6 @@ export default function ImageViewer({$app, initialState}){
 
     this.modalOn = () =>{
         this.$target.style.display = "flex";
-        this.$target.style.width = "100%";
-        this.$target.style.height = "100%";
         document.body.style.backgroundColor = "grey";
     }
 
@@ -38,6 +36,7 @@ export default function ImageViewer({$app, initialState}){
             document.body.addEventListener('click', (e)=>{
                 e.preventDefault();
                 e.stopPropagation();
+                //console.log(e.target);
                 const { target } = e;
                 if(!target.classList.contains('modal-point'))
                     this.modalOff();
