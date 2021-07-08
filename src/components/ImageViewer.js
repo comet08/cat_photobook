@@ -30,9 +30,10 @@ export default function ImageViewer({$app, initialState}){
             <img class="modal-point" src="${IMAGE_PATH}${this.state}">
             </div>
             `
-
+            //모달 켜기
             await this.modalOn();
             
+            //사진 이외의 영역을 클릭하면 modal off
             document.body.addEventListener('click', (e)=>{
                 e.preventDefault();
                 e.stopPropagation();
@@ -42,6 +43,7 @@ export default function ImageViewer({$app, initialState}){
                     this.modalOff();
             })
 
+            // esc키를 누르면 modal off
             window.addEventListener("keyup", e=>{
                 if(this.$target.style.display === "flex" && e.key === "Escape")
                     this.modalOff();

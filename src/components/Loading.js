@@ -13,7 +13,7 @@ export default function Loading({$app, initialState}){
     this.render = () =>{
 
         this.$target.innerHTML = ` 💜💙💚💛🧡 Loading 🧡💛💚💙💜`;
-
+        // 로딩중일 경우만 화면에 노출
         this.$target.style.display = this.state ? "block" : "none";
     }
 

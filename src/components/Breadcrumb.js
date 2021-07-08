@@ -31,11 +31,12 @@ export default function Breadcrumb({$app, initialState, onClick}){
         }
     }
 
-    document.body.addEventListener('click', e=>{
+    this.$target.addEventListener('click', e=>{
         e.preventDefault();
         e.stopPropagation();
+        // 가장 가까운 nav를 선택
         const $navItem = e.target.closest('.nav-item')
-
+        
         if($navItem){
             const { index } = $navItem.dataset;
             this.onClick(index ? parseInt(index, 10) : null)

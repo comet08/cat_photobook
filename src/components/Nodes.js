@@ -38,16 +38,19 @@ export default function Nodes({$app, initialState, onClick, onBackClick}){
                 $node.addEventListener("click", (e)=>{
                     e.preventDefault();
                     e.stopPropagation();
+                    // dataset으로부터 data로 시작하는 속성 추출
+                    // data-node-id 속성이므로 nodeId로 접근한다.
                     const { nodeId } = e.target.dataset;
                     
-                    if(nodeId){
+                    
+                    if(nodeId){ // 선택한 노드의 nodeId 가 있을 경우
                         const selectedNode = this.state.nodes.find(node => node.id === nodeId);
 
                         if(selectedNode){
                             this.onClick(selectedNode);
                         }
                     }
-                    else{
+                    else{  // 없을 경우 = data-node-id 속성이 없는 node클래스는 prev 버튼.
                         this.onBackClick();
                         return;
                     }

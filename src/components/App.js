@@ -29,6 +29,8 @@ export default function App({$app}){
         imageViewer.setState(this.state.selectedFilePath);
     }
 
+    // Loading, ImageViewer, Breadcrumb, Nodes
+
     const loading = new Loading({
         $app,
         initialState : this.state.isLoading
@@ -53,10 +55,13 @@ export default function App({$app}){
                 })
                 return;
             }
+
+            //자기 자신을 클릭했다면
             if(index === this.state.depth.length-1)
             return;
 
             const nextState = {...this.state};
+            // 선택 인덱스까지 depth를 자른다
             const nextDepth = this.state.depth.slice(0, index+1);
             console.log(nextDepth)
             this.setState({
@@ -76,9 +81,9 @@ export default function App({$app}){
             nodes : this.state.nodes
         },
         onClick : async (node) => {
-            try{
+            try{ // 클릭한 대상이 디렉터리일 경우와 파일일 경우
                 if(node.type==="DIRECTORY"){
-                    if(cache[node.id]){
+                    if(cache[node.id]){ // 캐시에 있을 경우
                         this.setState({
                             ...this.state,
                             isRoot:false,
@@ -87,11 +92,12 @@ export default function App({$app}){
                             selectedFilePath : null
                         })
                     }
-                    else {
+                    else { // 캐시에 없을 경우
                         this.setState({
                             ...this.state,
                             isLoading : true
                         })
+                        // 새 정보 request
                         const newNodes = await request(node.id);
 
                         this.setState({
@@ -102,6 +108,8 @@ export default function App({$app}){
                             nodes : newNodes,
                             selectedFilePath : null
                         })
+
+                        // 캐시에 저장
                         cache[node.id] = newNodes;
                     }
                 }
@@ -118,9 +126,12 @@ export default function App({$app}){
         },
 
         onBackClick : () => {
+            // 뒤로가기 (prev 버튼) 클릭한 경우
             const nextState = { ...this.state};
+            // 제일 마지막 방문 노드를 제외
             nextState.depth.pop();
 
+            // 남은 노드가 없다면 루트 노드로 돌아감
             const prevNodeID = nextState.depth.length ?
             nextState.depth[nextState.depth.length-1].id : null;
             
@@ -159,7 +170,7 @@ export default function App({$app}){
                 isRoot : true,
                 nodes : rootNodes,
             })
-
+            // 루트 노드 (최상위) 설정
             cache.rootNodes = rootNodes;
             
             this.setState({
