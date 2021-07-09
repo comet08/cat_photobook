@@ -14,7 +14,16 @@ export default function Loading({$app, initialState}){
 
         this.$target.innerHTML = ` 💜💙💚💛🧡 Loading 🧡💛💚💙💜`;
         // 로딩중일 경우만 화면에 노출
-        this.$target.style.display = this.state ? "block" : "none";
+        if(this.state){
+            this.$target.style.display ="block";
+            this.$target.style.backgroundColor = "white";
+            document.body.style.backgroundColor = "grey";
+        }
+        else{
+            this.$target.style.display = "none";
+            document.body.style.backgroundColor = "white";
+        }
+        
     }
 
 }
