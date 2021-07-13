@@ -3,7 +3,7 @@ export default function Loading({$app, initialState}){
     this.$target = document.createElement('div');
     this.$target.className = "loading";
 
-    $app.appendChild(this.$target);
+    document.body.appendChild(this.$target);
 
     this.setState = (nextState) =>{
         this.state = nextState;
@@ -12,22 +12,19 @@ export default function Loading({$app, initialState}){
 
     this.prevent = (e) =>{
         e.preventDefault();
-        e.stopPropataion();
+        e.stopPropagation();
     }
 
     this.render = () =>{
 
-        this.$target.innerHTML = ` 💜💙💚💛🧡 Loading 🧡💛💚💙💜`;
+        this.$target.innerHTML = ` <img src="./assets/nyan-cat.gif">`;
         // 로딩중일 경우만 화면에 노출
         if(this.state){
             this.$target.style.display ="block";
-            this.$target.style.backgroundColor = "white";
-            document.body.style.backgroundColor = "grey";
             document.body.addEventListener('click', this.prevent, false);
         }
         else{
             this.$target.style.display = "none";
-            document.body.style.backgroundColor = "white";
             document.body.removeEventListener('click', this.prevent, false);
         }
         

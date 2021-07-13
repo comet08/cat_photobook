@@ -20,7 +20,7 @@ export default function ImageViewer({$app, initialState}){
 
     this.modalOff = () =>{
         this.$target.style.display = "none";
-        document.body.style.backgroundColor = "white";
+        document.body.style.backgroundColor='#eee';
     }
 
     this.onEvent = (e)=>{

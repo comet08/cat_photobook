@@ -2,6 +2,7 @@
 export default function Nodes({$app, initialState, onClick, onBackClick}){
     this.state = initialState;
     this.$target = document.createElement('ul');
+    this.$target.className = "Nodes";
     $app.appendChild(this.$target);
 
     this.onClick = onClick;
@@ -15,11 +16,11 @@ export default function Nodes({$app, initialState, onClick, onBackClick}){
     this.render = () =>{
         if(this.state.nodes.length){ 
             const nodesTemplate = this.state.nodes.map((node)=>{
-                const icon = node.type === "FILE" ? '💕' : '💌';
+                const icon = node.type === "FILE" ? './assets/file.png' : './assets/directory.png';
                 
                 return `
                 <div class="Node" data-node-id="${node.id}">
-                    <span class="icon" data-node-id="${node.id}">${icon}</span>
+                    <img src='${icon}' data-node-id="${node.id}">
                     <span data-node-id="${node.id}">${node.name}</span>
                 </div>
                 `
@@ -28,7 +29,7 @@ export default function Nodes({$app, initialState, onClick, onBackClick}){
 
             this.$target.innerHTML = this.state.isRoot ? 
             nodesTemplate :
-            `<div class="Node">prev</div>${nodesTemplate}`;
+            `<div class="Node"><img src="./assets/prev.png"></div>${nodesTemplate}`;
         }
     }
 
