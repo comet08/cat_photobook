@@ -10,6 +10,11 @@ export default function Loading({$app, initialState}){
         this.render();
     }
 
+    this.prevent = (e) =>{
+        e.preventDefault();
+        e.stopPropataion();
+    }
+
     this.render = () =>{
 
         this.$target.innerHTML = ` 💜💙💚💛🧡 Loading 🧡💛💚💙💜`;
@@ -18,10 +23,12 @@ export default function Loading({$app, initialState}){
             this.$target.style.display ="block";
             this.$target.style.backgroundColor = "white";
             document.body.style.backgroundColor = "grey";
+            document.body.addEventListener('click', this.prevent, false);
         }
         else{
             this.$target.style.display = "none";
             document.body.style.backgroundColor = "white";
+            document.body.removeEventListener('click', this.prevent, false);
         }
         
     }

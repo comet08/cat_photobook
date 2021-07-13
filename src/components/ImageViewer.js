@@ -23,6 +23,18 @@ export default function ImageViewer({$app, initialState}){
         document.body.style.backgroundColor = "white";
     }
 
+    this.onEvent = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        //console.log(e.target);
+        const { target } = e;
+        if(!target.classList.contains('modal-point'))
+            this.modalOff();
+
+        if(this.$target.style.display === "flex" && e.key === "Escape")
+            this.modalOff();
+    }
+
     this.render = async () =>{
         if(this.state){
             this.$target.innerHTML = `
@@ -34,20 +46,14 @@ export default function ImageViewer({$app, initialState}){
             await this.modalOn();
             
             //사진 이외의 영역을 클릭하면 modal off
-            document.body.addEventListener('click', (e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                //console.log(e.target);
-                const { target } = e;
-                if(!target.classList.contains('modal-point'))
-                    this.modalOff();
-            })
+            document.body.addEventListener('click', this.onEvent, false);
 
             // esc키를 누르면 modal off
-            window.addEventListener("keyup", e=>{
-                if(this.$target.style.display === "flex" && e.key === "Escape")
-                    this.modalOff();
-            })
+            window.addEventListener("keyup", this.onEvent, false);
+        }
+        else{
+            document.body.removeEventListener('click', this.onEvent, false);
+            window.removeEventListener("keyup", this.onEvent, false);
         }
     }
 }
